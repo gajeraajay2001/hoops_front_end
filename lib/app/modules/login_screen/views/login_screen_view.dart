@@ -82,7 +82,9 @@ class LoginScreenView extends GetWidget<LoginScreenController> {
               ),
               SizedBox(height: getSize(15, context)),
               InkWell(
-                onTap: () {
+                onTap: () async {
+                  // UserCredential userCredential =
+                  //     await FirebaseAuth.instance.signInAnonymously();
                   if (!isNullEmptyOrFalse(controller.mobileNumberController) &&
                       controller.mobileNumberController.text.length == 10) {
                     verifyMobileNumber(context: context);
@@ -203,7 +205,7 @@ class LoginScreenView extends GetWidget<LoginScreenController> {
   }
 
   verifyMobileNumber({required BuildContext context}) async {
-    app.resolve<CustomDialogs>().showCircularDialog(context);
+    // app.resolve<CustomDialogs>().showCircularDialog(context);
     FirebaseAuth auth = FirebaseAuth.instance;
     await FirebaseAuth.instance
         .verifyPhoneNumber(
@@ -229,9 +231,13 @@ class LoginScreenView extends GetWidget<LoginScreenController> {
         Get.toNamed(Routes.OTP_SCREEN,
             arguments: {"verificationId": verificationId});
       },
-      codeAutoRetrievalTimeout: (String verificationId) {},
+      codeAutoRetrievalTimeout: (String verificationId) {
+        app.resolve<CustomDialogs>().hideCircularDialog(context);
+        print("Time Out Error");
+      },
     )
         .catchError((error) {
+      print(error);
       app.resolve<CustomDialogs>().hideCircularDialog(context);
     });
   }
