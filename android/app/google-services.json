@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "489184713664",
+    "project_id": "hoops-project-a498b",
+    "storage_bucket": "hoops-project-a498b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:489184713664:android:0361206e8ce727c4614625",
+        "android_client_info": {
+          "package_name": "com.example.hoops_new"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "489184713664-a5mh404j13l841d5aqru3t3nm976f70i.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCtd6acZq5lTkLtrmtjw8OfGDnZ8b-ybME"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "489184713664-a5mh404j13l841d5aqru3t3nm976f70i.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -5,4 +5,9 @@ class ColorConstant {
   static Color primaryTheme = Color(0xffB25927);
 }
 
+class ArgumentConstant {
+  static String token = "token";
+  static String mobileNumber = "mobileNumber";
+}
+
 Rx<PageController> pageController = PageController().obs;

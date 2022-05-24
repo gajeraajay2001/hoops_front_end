@@ -1,9 +1,8 @@
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
 class LoginScreenController extends GetxController {
-  //TODO: Implement LoginScreenController
-
-  final count = 0.obs;
+  TextEditingController mobileNumberController = TextEditingController();
   @override
   void onInit() {
     super.onInit();
@@ -16,5 +15,4 @@ class LoginScreenController extends GetxController {
 
   @override
   void onClose() {}
-  void increment() => count.value++;
 }

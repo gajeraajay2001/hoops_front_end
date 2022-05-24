@@ -18,6 +18,7 @@ abstract class Routes {
   static const INFORMATION_TAB_VIEW = _Paths.INFORMATION_TAB_VIEW;
   static const PRIVACY_TAB_VIEW = _Paths.PRIVACY_TAB_VIEW;
   static const NOTIFICATION_SCREEN = _Paths.NOTIFICATION_SCREEN;
+  static const OTP_SCREEN = _Paths.OTP_SCREEN;
 }
 
 abstract class _Paths {
@@ -35,4 +36,5 @@ abstract class _Paths {
   static const INFORMATION_TAB_VIEW = '/information-tab-view';
   static const PRIVACY_TAB_VIEW = '/privacy-tab-view';
   static const NOTIFICATION_SCREEN = '/notification-screen';
+  static const OTP_SCREEN = '/otp-screen';
 }

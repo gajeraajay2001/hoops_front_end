@@ -1,16 +1,19 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-
 import 'package:get/get.dart';
+import 'package:hoops/Utilities/customeDialogs.dart';
 import 'package:hoops/Utilities/math_utils.dart';
 import 'package:hoops/app/routes/app_pages.dart';
 import 'package:hoops/constant/constants.dart';
-
+import 'package:hoops/main.dart';
+import '../../../../constant/sizeConstant.dart';
 import '../controllers/login_screen_controller.dart';
 
-class LoginScreenView extends GetView<LoginScreenController> {
+class LoginScreenView extends GetWidget<LoginScreenController> {
   @override
   Widget build(BuildContext context) {
+    MySize().init(context);
     return Scaffold(
       body: SingleChildScrollView(
         child: Container(
@@ -43,6 +46,7 @@ class LoginScreenView extends GetView<LoginScreenController> {
                 height: getSize(55, context),
                 child: TextFormField(
                   cursorColor: Colors.white,
+                  controller: controller.mobileNumberController,
                   style: TextStyle(color: Colors.white),
                   decoration: InputDecoration(
                     border: OutlineInputBorder(
@@ -79,7 +83,16 @@ class LoginScreenView extends GetView<LoginScreenController> {
               SizedBox(height: getSize(15, context)),
               InkWell(
                 onTap: () {
-                  Get.toNamed(Routes.ADD_PROFILE_SCREEN);
+                  if (!isNullEmptyOrFalse(controller.mobileNumberController) &&
+                      controller.mobileNumberController.text.length == 10) {
+                    verifyMobileNumber(context: context);
+                  } else {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                          content: Text("Please enter valid mobile number"),
+                          duration: Duration(milliseconds: 500)),
+                    );
+                  }
                 },
                 child: Container(
                   decoration: BoxDecoration(
@@ -187,5 +200,39 @@ class LoginScreenView extends GetView<LoginScreenController> {
         ),
       ),
     );
+  }
+
+  verifyMobileNumber({required BuildContext context}) async {
+    app.resolve<CustomDialogs>().showCircularDialog(context);
+    FirebaseAuth auth = FirebaseAuth.instance;
+    await FirebaseAuth.instance
+        .verifyPhoneNumber(
+      phoneNumber: '+91${controller.mobileNumberController.text.trim()}',
+      verificationCompleted: (PhoneAuthCredential credential) async {
+        await auth.signInWithCredential(credential);
+      },
+      verificationFailed: (FirebaseAuthException e) {
+        if (e.code == 'invalid-phone-number') {
+          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+            content: Text("The provided phone number is not valid."),
+            duration: Duration(milliseconds: 500),
+          ));
+          app.resolve<CustomDialogs>().hideCircularDialog(context);
+
+          print('The provided phone number is not valid.');
+        }
+      },
+      codeSent: (String verificationId, int? forceResendingToken) async {
+        app.resolve<CustomDialogs>().hideCircularDialog(context);
+        box.write(ArgumentConstant.mobileNumber,
+            '+91${controller.mobileNumberController.text.trim()}');
+        Get.toNamed(Routes.OTP_SCREEN,
+            arguments: {"verificationId": verificationId});
+      },
+      codeAutoRetrievalTimeout: (String verificationId) {},
+    )
+        .catchError((error) {
+      app.resolve<CustomDialogs>().hideCircularDialog(context);
+    });
   }
 }

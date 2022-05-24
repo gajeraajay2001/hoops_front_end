@@ -16,6 +16,8 @@ import 'package:hoops/app/modules/login_screen/bindings/login_screen_binding.dar
 import 'package:hoops/app/modules/login_screen/views/login_screen_view.dart';
 import 'package:hoops/app/modules/notification_screen/bindings/notification_screen_binding.dart';
 import 'package:hoops/app/modules/notification_screen/views/notification_screen_view.dart';
+import 'package:hoops/app/modules/otp_screen/bindings/otp_screen_binding.dart';
+import 'package:hoops/app/modules/otp_screen/views/otp_screen_view.dart';
 import 'package:hoops/app/modules/privacy_tab_view/bindings/privacy_tab_view_binding.dart';
 import 'package:hoops/app/modules/privacy_tab_view/views/privacy_tab_view_view.dart';
 import 'package:hoops/app/modules/setting_screen/bindings/setting_screen_binding.dart';
@@ -106,6 +108,11 @@ class AppPages {
       name: _Paths.NOTIFICATION_SCREEN,
       page: () => NotificationScreenView(),
       binding: NotificationScreenBinding(),
+    ),
+    GetPage(
+      name: _Paths.OTP_SCREEN,
+      page: () => OtpScreenView(),
+      binding: OtpScreenBinding(),
     ),
   ];
 }
